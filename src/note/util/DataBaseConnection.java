@@ -26,10 +26,12 @@ public class DataBaseConnection
     {
         return this.conn ;
     }
-    public void close()
+    public void close(ResultSet rs,PreparedStatement ps)
     {
         try
         {
+            if (rs!=null)rs.close();
+            if (ps!=null)ps.close();
             this.conn.close() ;
         }
         catch (Exception e)
