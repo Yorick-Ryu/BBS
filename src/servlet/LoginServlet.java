@@ -26,11 +26,13 @@ public class LoginServlet extends HttpServlet {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         User user = new User(username,password,"true");
+        HttpSession session = request.getSession();
+        String path = "login_success.jsp";
         try {
             if (userService.login(user)){
-                out.println("登陆成功<br>");
-                out.println("用户名：" + username + "<br>");
-                out.println("密 码：" + password+"<br>");
+                session.setAttribute("me",user.getName());
+                session.setAttribute("id",user.getId());
+                request.getRequestDispatcher(path).forward(request,response);
             }else {
                 out.println("登陆失败<br>");
             }
