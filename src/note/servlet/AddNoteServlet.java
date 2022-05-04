@@ -1,4 +1,4 @@
-package servlet;
+package note.servlet;
 
 import note.service.NoteService;
 import note.service.impl.NoteServiceImpl;
@@ -8,7 +8,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "AddNoteServlet", value = "/AddNoteServlet")
 public class AddNoteServlet extends HttpServlet {

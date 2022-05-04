@@ -1,4 +1,4 @@
-package servlet;
+package note.servlet;
 
 import note.service.NoteService;
 import note.service.impl.NoteServiceImpl;
