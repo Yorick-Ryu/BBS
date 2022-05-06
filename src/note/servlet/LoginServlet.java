@@ -25,11 +25,14 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String username=request.getParameter("username");
         String password=request.getParameter("password");
-        User user = new User(username,password,"true");
+        User user = new User(username,password);
         HttpSession session = request.getSession();
         String path = "login_success.jsp";
         try {
             if (userService.login(user)){
+                if (user.getFlag().equals("true")){
+                    path = "admin/login_success.jsp";
+                }
                 session.setAttribute("me",user.getName());
                 session.setAttribute("id",user.getId());
                 request.getRequestDispatcher(path).forward(request,response);

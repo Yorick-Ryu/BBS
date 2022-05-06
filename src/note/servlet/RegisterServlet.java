@@ -26,7 +26,7 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
-        User user = new User(username,password,email,"true");
+        User user = new User(username,password,email,"false");
         try {
             userService.register(user);
         } catch (Exception e) {
@@ -36,5 +36,6 @@ public class RegisterServlet extends HttpServlet {
         out.println("用户名：" + username + "<br>");
         out.println("密 码：" + password+"<br>");
         out.println("邮箱：" + email+"<br>");
+
     }
 }

@@ -1,10 +1,9 @@
 package note.vo;
 
 public class User {
-    public User(String name, String password, String flag) {
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
-        this.flag = flag;
     }
 
     public User(String name, String password, String email, String flag) {
@@ -14,7 +13,7 @@ public class User {
         this.flag = flag;
     }
 
-    private String id;
+    private int id;
     private String name;
     private String password;
     private String email;
@@ -22,11 +21,15 @@ public class User {
     private String active;
     private String image;
 
-    public String getId() {
+    public User() {
+
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,5 +79,16 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", flag='" + flag + '\'' +
+                '}';
     }
 }

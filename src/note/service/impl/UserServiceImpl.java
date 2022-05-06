@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> queryAll() throws Exception {
-        return null;
+        return userDao.queryAll();
     }
 
     @Override
     public void delete(int id) throws Exception {
-
+        userDao.delete(id);
     }
 
     @Override

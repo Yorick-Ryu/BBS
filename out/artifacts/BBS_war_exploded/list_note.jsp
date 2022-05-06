@@ -96,7 +96,7 @@
             </td>
             <td>
                 <a href="#"
-                   onclick="window.confirm('确定删除吗？')?this.href='/DeleteServlet?id=<%=n.getId()%>':this.href='javascript:void()';">
+                   onclick="window.confirm('确定删除吗？')?this.href='/DeleteServlet?type=note&id=<%=n.getId()%>':this.href='javascript:void()';">
                     删除</a>
             </td>
         </tr>
