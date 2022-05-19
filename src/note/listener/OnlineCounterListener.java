@@ -20,7 +20,7 @@ public class OnlineCounterListener implements HttpSessionListener, HttpSessionAt
             onlineUsers.add(userName);
             se.getSession().setAttribute("online",onlineUsers);
         }
-        System.out.println("lis"+userName);
+        //System.out.println("lis"+userName);
     }
 
     @Override

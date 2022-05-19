@@ -41,11 +41,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(String id) throws Exception {
-
     }
 
     @Override
     public void update(User user) throws Exception {
-
+        userDao.update(user);
     }
 }

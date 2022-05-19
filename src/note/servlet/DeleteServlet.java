@@ -31,7 +31,7 @@ public class DeleteServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            response.sendRedirect("/userManager.jsp");
+            response.sendRedirect("/admin/userManager.jsp");
         }
 
 

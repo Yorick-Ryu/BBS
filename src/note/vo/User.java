@@ -13,6 +13,15 @@ public class User {
         this.flag = flag;
     }
 
+    public User(int id, String name, String password, String email, String flag, String image) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.flag = flag;
+        this.image = image;
+    }
+
     private int id;
     private String name;
     private String password;

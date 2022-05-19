@@ -4,6 +4,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
 <%@ page import="note.util.SplitPage" %>
+<%@ page import="note.vo.User" %>
 <%--
   Created by IntelliJ IDEA.
   User: yurui
@@ -15,47 +16,83 @@
 <html>
 <head>
     <title>List_Note</title>
+    <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <script type="text/javascript">
         function go() {
             const goPage = document.all.selectpage.value;
-            alert("我们将去页面:list_note.jsp?flag=" + goPage);
             document.open("list_note.jsp?flag=" + goPage, "_self", "");
         }
     </script>
 </head>
 <body>
 <jsp:useBean id="spage" class="note.util.SplitPage" scope="session"></jsp:useBean>
-<div style="text-align: center;">
-    <h3>
-        <a href="list_note.jsp?flag=first">显示所有留言</a>
-    </h3>
-    <form name="form1" method="post" action="list_note.jsp?flag=first">
-        <table width="500" border="0" align="center">
-            <tr>
-                <td>在 <select name="item">
-                    <option value="title">标题</option>
-                    <option value="author">作者</option>
-                    <option value="content">内容</option>
-                </select> 中查询:
-                    <input type="text" name="content">
-                    <input type="submit" name="submit" value="搜索"></td>
-            </tr>
-        </table>
-    </form>
+<%User user = (User) session.getAttribute("user");%>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="<%=user.getImage()%>" alt="" width="30" height="30" class="d-inline-block align-text-top">
+            留言板
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="${pageContext.request.contextPath}/list_note.jsp">主页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/note.jsp">写留言</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/userManager.jsp">用户管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/upload.jsp">修改头像</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/index.html">登录&注册</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" name="form1" method="post" action="list_note.jsp?flag=first">
+                <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<%--    <form name="form1" method="post" action="list_note.jsp?flag=first">--%>
+<%--        <table width="500" border="0" align="center">--%>
+<%--            <tr>--%>
+<%--                <td>在 <select name="item">--%>
+<%--                    <option value="title">标题</option>--%>
+<%--                    <option value="author">作者</option>--%>
+<%--                    <option value="content">内容</option>--%>
+<%--                </select> 中查询:--%>
+<%--                    <input type="text" name="content">--%>
+<%--                    <input type="submit" name="submit" value="搜索"></td>--%>
+<%--            </tr>--%>
+<%--        </table>--%>
+<%--    </form>--%>
 
-    <%
-        NoteService note = new NoteServiceImpl();
-        String flag = request.getParameter("flag");//翻页时的方向值,即SplitPage中请求标识参数
-        //每次刷新页面时都应当重新获得表中的记录数, 因为翻页过程中表的记录可能随时都会更新
-        int totalRows = 0;//总的记录数
-    %>
-    <table width="80%" border=1 cellspacing="0" align="center">
+
+<%
+    NoteService note = new NoteServiceImpl();
+    String flag = request.getParameter("flag");//翻页时的方向值,即SplitPage中请求标识参数
+    //每次刷新页面时都应当重新获得表中的记录数, 因为翻页过程中表的记录可能随时都会更新
+    int totalRows = 0;//总的记录数
+%>
+
+<div class="table-responsive">
+    <table class="table align-middle table-striped table-hover table-bordered">
         <tr>
-            <td><span style="font-size: x-small; color: #0000FF; ">留言ID</span></td>
-            <td><span style="font-size: x-small; color: #0000FF; ">标题</span></td>
-            <td><span style="font-size: x-small; color: #0000FF; ">作者</span></td>
-            <td><span style="font-size: x-small; color: #0000FF; ">内容</span></td>
-            <td><span style="font-size: x-small; color: #0000FF; ">删除</span></td>
+            <th scope="col">ID</th>
+            <th scope="col">标题</th>
+            <th scope="col">作者</th>
+            <th scope="col">内容</th>
+            <th scope="col">操作</th>
         </tr>
         <%
             //翻页查询时需要传递翻页对象,翻页对象保存在session中
@@ -95,21 +132,52 @@
             <td><%=n.getContent()%>
             </td>
             <td>
-                <a href="#"
-                   onclick="window.confirm('确定删除吗？')?this.href='/DeleteServlet?type=note&id=<%=n.getId()%>':this.href='javascript:void()';">
-                    删除</a>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal<%=n.getId()%>">
+                    <%--                            onclick="window.confirm('确定删除吗？')?this.href='/DeleteServlet?type=note&id=<%=n.getId()%>':this.href='javascript:void()';">--%>
+                    删除
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal<%=n.getId()%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">提示</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                确定删除此留言吗？
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
+                                <button type="button" class="btn btn-primary" onclick="window.location.href='/DeleteServlet?type=note&id=<%=n.getId()%>'">是</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
         <%
             }
         %>
+
         <tr>
-            <td colspan="5" align="right">
-                <a href="list_note.jsp?flag=<%=SplitPage.FIRSTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">首页</a>
-                <a href="list_note.jsp?flag=<%=SplitPage.PREVIOUSEPAGE%>&item=<%=strItem%>&content=<%=strContent%>">上一页</a>
-                <a href="list_note.jsp?flag=<%=SplitPage.NEXTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">下一页</a>
-                <a href="list_note.jsp?flag=<%=SplitPage.LASTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">最后页</a>
-                <select id="selectpage" name="goPage" onchange="go();">
+            <td colspan="5" align="center">
+                <a href="list_note.jsp?flag=<%=SplitPage.FIRSTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
+                    <button type="button" class="btn btn-primary btn-sm">首页</button>
+                </a>
+                <a href="list_note.jsp?flag=<%=SplitPage.PREVIOUSEPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
+                    <button type="button" class="btn btn-primary btn-sm">上一页</button>
+                </a>
+                <a href="list_note.jsp?flag=<%=SplitPage.NEXTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
+                    <button type="button" class="btn btn-primary btn-sm">下一页</button>
+                </a>
+                <a href="list_note.jsp?flag=<%=SplitPage.LASTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
+                    <button type="button" class="btn btn-primary btn-sm">尾页</button>
+                </a>
+                <select id="selectpage" name="goPage" onchange="go();"
+                        class="btn btn-primary dropdown-toggle btn-sm">
                     <%
                         for (int i = 1; i <= spage.getTotalPages(); i++) {
                     %>
@@ -122,16 +190,6 @@
             </td>
         </tr>
     </table>
-    <br/>
-</div>
-<div style="margin: 0 auto" align="center">
-    <form name="form2" action="/AddNoteServlet" method='post'>
-        标题：<br/>
-        <input type="text" name="title" style="width: 80%  "><br/>
-        内容：<br/>
-        <textarea id="edtInputWord" name="note" style="width: 80%  ;height: 100px"></textarea><br/><br/>
-        <input type="submit" value="提交">
-    </form>
 </div>
 
 </body>

@@ -11,8 +11,8 @@ class NoteServiceImplTest {
 
     @Test
     void insert() {
-        for (int i = 8;i<=20;i++){
-            Note note = new Note("Testing测试"+i,"Yorick","Note测试"+i);
+        for (int i = 21;i<=200;i++){
+            Note note = new Note("Note测试"+i,"Yorick","Note测试"+i);
             NoteService noteService = new NoteServiceImpl();
             try {
                 noteService.insert(note);

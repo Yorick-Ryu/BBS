@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean login(User user) throws Exception {
         boolean flag = false;
-        String sql = "SELECT id,email,flag FROM user "
+        String sql = "SELECT id,email,flag,image FROM user "
                 + "WHERE name=? and password=?";
         PreparedStatement pstmt = null;
         DataBaseConnection dbc = null;
@@ -34,6 +34,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(rs.getInt(1));
                 user.setEmail(rs.getString(2));
                 user.setFlag(rs.getString(3));
+                user.setImage(rs.getString(4));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,7 +48,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void register(User user) throws Exception {
-        String sql = "INSERT INTO user(name,email,password,flag) values(?,?,?,?)";
+        String sql = "INSERT INTO user(name,email,password,flag,image) values(?,?,?,?,?)";
         PreparedStatement pstmt = null;
         DataBaseConnection dbc = new DataBaseConnection();
         try {
@@ -56,6 +57,7 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getPassword());
             pstmt.setString(4, user.getFlag());
+            pstmt.setString(5, user.getImage());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,6 +131,25 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) throws Exception {
-
+        String sql = "UPDATE user SET " +
+                "NAME = ?,PASSWORD=?,email=?,flag=?,image=? " +
+                "WHERE id=?";
+        PreparedStatement pstmt = null;
+        DataBaseConnection dbc = new DataBaseConnection();
+        try {
+            pstmt = dbc.getConnection().prepareStatement(sql);
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getFlag());
+            pstmt.setString(5, user.getImage());
+            pstmt.setInt(6, user.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("更新失败");
+        } finally {
+            dbc.close(null, pstmt);
+        }
     }
 }

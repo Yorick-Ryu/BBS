@@ -27,6 +27,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         User user = new User(username,password,email,"false");
+        user.setImage("/images/nice.jpg");
         try {
             userService.register(user);
         } catch (Exception e) {

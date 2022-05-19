@@ -9,11 +9,15 @@
 <html>
 <head>
     <title>BBS_Login_Success</title>
+    <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
 </head>
 <body>
-<jsp:useBean id="count" class="note.util.ComputerCount" ></jsp:useBean>
+
+<jsp:useBean id="count" class="note.util.ComputerCount"></jsp:useBean>
 <h1>登录成功</h1><br/>
-<p>您是第<jsp:getProperty name="count" property="number"></jsp:getProperty>位访问本站的用户</p>
+<p>您是第
+    <jsp:getProperty name="count" property="number"></jsp:getProperty>
+    位访问本站的用户</p>
 <a href="list_note.jsp">进入留言板</a>
 
 </body>
