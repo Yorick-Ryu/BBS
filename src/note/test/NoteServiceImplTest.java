@@ -9,11 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NoteServiceImplTest {
 
+    NoteService noteService = new NoteServiceImpl();
+
     @Test
     void insert() {
-        for (int i = 21;i<=200;i++){
-            Note note = new Note("Note测试"+i,"Yorick","Note测试"+i);
-            NoteService noteService = new NoteServiceImpl();
+        for (int i = 21; i <= 200; i++) {
+            Note note = new Note("Note测试" + i, "Yorick", "Note测试" + i);
             try {
                 noteService.insert(note);
             } catch (Exception e) {
@@ -24,9 +25,20 @@ class NoteServiceImplTest {
 
     @Test
     void delete() {
-        NoteService noteService = new NoteServiceImpl();
         try {
             noteService.delete(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void update() {
+
+        Note note = new Note("Note","yy","update");
+        note.setId(16);
+        try {
+            noteService.update(note);
         } catch (Exception e) {
             e.printStackTrace();
         }

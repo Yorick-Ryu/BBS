@@ -120,5 +120,6 @@
         %>
     </table>
 </div>
+<%@ include file="/foot.jsp"%>
 </body>
 </html>

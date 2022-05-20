@@ -33,12 +33,16 @@ public class NoteDaoImpl implements NoteDao {
 
     @Override
     public void update(Note note) throws Exception {
-        String sql = "UPDATE note WHERE id = ?";
+        String sql = "UPDATE note SET " +
+                "title = ?,content= ? " +
+                "WHERE id = ?";
         PreparedStatement ps = null;
         DataBaseConnection dbc = new DataBaseConnection();
         try {
             ps = dbc.getConnection().prepareStatement(sql);
-            ps.setInt(1, note.getId());
+            ps.setString(1, note.getTitle());
+            ps.setString(2, note.getContent());
+            ps.setInt(3, note.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

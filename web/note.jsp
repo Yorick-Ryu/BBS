@@ -11,6 +11,11 @@
     <title>留言板——写留言</title>
     <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
     <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+    <style>
+        .foot{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <%User user = (User) session.getAttribute("user");%>
@@ -57,9 +62,14 @@
             <label for="exampleFormControlTextarea1" class="form-label">内容</label>
             <textarea name="note" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <input class="btn btn-primary" type="submit" value="提交">
+        <div class="foot">
+            <input class="btn btn-primary" type="submit" value="提交">
+            <input class="btn btn-outline-primary" type="reset" value="清空">
+        </div>
     </form>
 </div>
+
+<%@ include file="foot.jsp"%>
 
 </body>
 </html>

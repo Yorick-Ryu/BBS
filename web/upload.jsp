@@ -81,5 +81,6 @@
 <%--        </tr>--%>
 <%--    </table>--%>
 <%--</form>--%>
+<%@ include file="foot.jsp"%>
 </body>
 </html>

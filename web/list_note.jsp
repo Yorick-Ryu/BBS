@@ -132,17 +132,19 @@
             <td><%=n.getContent()%>
             </td>
             <td>
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal<%=n.getId()%>">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal<%=n.getId()%>">
                     <%--                            onclick="window.confirm('确定删除吗？')?this.href='/DeleteServlet?type=note&id=<%=n.getId()%>':this.href='javascript:void()';">--%>
                     删除
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal<%=n.getId()%>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="exampleModal<%=n.getId()%>" tabindex="-1"
+                     aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">提示</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">删除留言</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
@@ -150,9 +152,49 @@
                                 确定删除此留言吗？
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
-                                <button type="button" class="btn btn-primary" onclick="window.location.href='/DeleteServlet?type=note&id=<%=n.getId()%>'">是</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary"
+                                        onclick="window.location.href='/DeleteServlet?type=note&id=<%=n.getId()%>'">确定
+                                </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalUP<%=n.getId()%>">
+                    <%--                            onclick="window.confirm('确定删除吗？')?this.href='/DeleteServlet?type=note&id=<%=n.getId()%>':this.href='javascript:void()';">--%>
+                    修改
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalUP<%=n.getId()%>" tabindex="-1"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelUP">修改留言</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <form id="form" action="UpdateServlet" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">标题：</label>
+                                        <input type="number" name="id" value="<%=n.getId()%>" style="display: none">
+                                        <input type="text" class="form-control" id="recipient-name" name="title"
+                                               value="<%=n.getTitle()%>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">内容：</label>
+                                        <textarea class="form-control" id="message-text"
+                                                  name="content"><%=n.getContent()%></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -191,6 +233,8 @@
         </tr>
     </table>
 </div>
+
+<%@ include file="foot.jsp"%>
 
 </body>
 </html>

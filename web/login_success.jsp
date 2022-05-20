@@ -10,15 +10,28 @@
 <head>
     <title>BBS_Login_Success</title>
     <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
+    <style>
+        #main {
+            text-align: center;
+            margin: 100px auto;
+        }
+    </style>
 </head>
+
 <body>
 
 <jsp:useBean id="count" class="note.util.ComputerCount"></jsp:useBean>
-<h1>登录成功</h1><br/>
-<p>您是第
-    <jsp:getProperty name="count" property="number"></jsp:getProperty>
-    位访问本站的用户</p>
-<a href="list_note.jsp">进入留言板</a>
-
+<div class="container" id="main">
+    <h1>登录成功</h1><br/>
+    <div class="lead">您是第
+        <jsp:getProperty name="count" property="number"></jsp:getProperty>
+        位访问本站的用户</div>
+    <br>
+    <a href="list_note.jsp">
+        <button class="btn btn-primary" type="button">进入留言板</button>
+    </a>
+</div>
+<%@ include file="foot.jsp"%>
 </body>
 </html>
