@@ -176,7 +176,9 @@ public class NoteDaoImpl implements NoteDao {
         DataBaseConnection dbc = null;
         dbc = new DataBaseConnection();
         String sql = "SELECT * FROM note WHERE " + key + " LIKE " + "'%" +
-                value + "%'" + " LIMIT ";
+                value + "%'" + " LIMIT " + sp.getPageRows() *
+                (sp.getCurrentPage() - 1) + ","
+                + sp.getPageRows();
         ResultSet rs = null;
         try {
             pstmt = dbc.getConnection().prepareStatement(sql);

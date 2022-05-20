@@ -55,4 +55,15 @@ public class Note {
     public void setFile(String file) {
         this.file = file;
     }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", content='" + content + '\'' +
+                ", file='" + file + '\'' +
+                '}';
+    }
 }
