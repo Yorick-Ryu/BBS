@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
     <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
     <style>
-        main{
+        main {
             width: 300px;
             text-align: center;
             margin: 100px auto;
@@ -54,14 +54,14 @@
 </nav>
 <main>
 
-        <div class="input-group">
-            <form action="UploadServlet" method="post"
-                  enctype="multipart/form-data">
-                <input type="file" name="icon" class="form-control" id="inputGroupFile04"
-                       aria-describedby="inputGroupFileAddon04" aria-label="Upload"><br/>
-                <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">上传</button>
-            </form>
-        </div>
+    <div class="input-group">
+        <form action="UploadServlet" method="post"
+              enctype="multipart/form-data">
+            <input type="file" name="icon" class="form-control" id="inputGroupFile04"
+                   aria-describedby="inputGroupFileAddon04" aria-label="Upload"><br/>
+            <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">上传</button>
+        </form>
+    </div>
 
 </main>
 
@@ -81,6 +81,6 @@
 <%--        </tr>--%>
 <%--    </table>--%>
 <%--</form>--%>
-<%@ include file="foot.jsp"%>
+<%@ include file="foot.jsp" %>
 </body>
 </html>

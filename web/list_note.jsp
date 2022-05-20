@@ -55,28 +55,32 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/index.html">登录&注册</a>
                 </li>
-            </ul>
-            <form class="d-flex" role="search" name="form1" method="post" action="list_note.jsp?flag=first">
-                <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
-                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
-            </form>
+                <%--            </ul>--%>
+                <%--            <form class="d-flex" role="search" name="form1" method="post" action="list_note.jsp?flag=first">--%>
+                <%--                <input class="form-control me-2" type="search" placeholder="" aria-label="Search">--%>
+                <%--                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>--%>
+                <%--            </form>--%>
         </div>
     </div>
 </nav>
-<%--    <form name="form1" method="post" action="list_note.jsp?flag=first">--%>
-<%--        <table width="500" border="0" align="center">--%>
-<%--            <tr>--%>
-<%--                <td>在 <select name="item">--%>
-<%--                    <option value="title">标题</option>--%>
-<%--                    <option value="author">作者</option>--%>
-<%--                    <option value="content">内容</option>--%>
-<%--                </select> 中查询:--%>
-<%--                    <input type="text" name="content">--%>
-<%--                    <input type="submit" name="submit" value="搜索"></td>--%>
-<%--            </tr>--%>
-<%--        </table>--%>
-<%--    </form>--%>
-
+<br/>
+<form name="form1" method="post" action="list_note.jsp?flag=first">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">在</span>
+                <select name="item" class="form-select-sm">
+                    <option value="title">标题</option>
+                    <option value="author">作者</option>
+                    <option value="content">内容</option>
+                </select>
+                <span class="input-group-text" id="basic-addon2">搜索</span>
+                <input type="text" name="content" class="form-control">
+                <input class="btn btn-outline-primary" type="submit" name="submit" value="确定">
+            </div>
+        </div>
+    </div>
+</form>
 
 <%
     NoteService note = new NoteServiceImpl();
@@ -98,7 +102,9 @@
             //翻页查询时需要传递翻页对象,翻页对象保存在session中
             request.setCharacterEncoding("utf-8");
             String strItem = request.getParameter("item");
+            System.out.println(strItem);
             String strContent = request.getParameter("content");
+            System.out.println(strContent);
             List<Note> list = null;
             HashMap<String, String> tm = new HashMap();
             try {
@@ -206,35 +212,70 @@
 
         <tr>
             <td colspan="5" align="center">
-                <a href="list_note.jsp?flag=<%=SplitPage.FIRSTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
-                    <button type="button" class="btn btn-primary btn-sm">首页</button>
-                </a>
-                <a href="list_note.jsp?flag=<%=SplitPage.PREVIOUSEPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
-                    <button type="button" class="btn btn-primary btn-sm">上一页</button>
-                </a>
-                <a href="list_note.jsp?flag=<%=SplitPage.NEXTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
-                    <button type="button" class="btn btn-primary btn-sm">下一页</button>
-                </a>
-                <a href="list_note.jsp?flag=<%=SplitPage.LASTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">
-                    <button type="button" class="btn btn-primary btn-sm">尾页</button>
-                </a>
-                <select id="selectpage" name="goPage" onchange="go();"
-                        class="btn btn-primary dropdown-toggle btn-sm">
-                    <%
-                        for (int i = 1; i <= spage.getTotalPages(); i++) {
-                    %>
-                    <option value="<%=i%>"
-                        <%=(spage.getCurrentPage() == +i) ?"selected='selected'": ""%>><%=i%>/<%=spage.getTotalPages()%>
-                            <%
-                    }
-                %>
-                </select>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link"
+                                                 href="list_note.jsp?flag=<%=SplitPage.FIRSTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">首页</a>
+                        </li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="list_note.jsp?flag=<%=SplitPage.PREVIOUSEPAGE%>&item=<%=strItem%>&content=<%=strContent%>"><span
+                                aria-hidden="true">&laquo;</span></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="list_note.jsp?flag=<%=SplitPage.PREVIOUSEPAGE%>&item=<%=strItem%>&content=<%=strContent%>"><%=(spage.getCurrentPage() - 1)%>
+                            </a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#"><%=spage.getCurrentPage()%>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="list_note.jsp?flag=<%=SplitPage.NEXTPAGE%>&item=<%=strItem%>&content=<%=strContent%>"><%=(spage.getCurrentPage() + 1)%>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="list_note.jsp?flag=<%=SplitPage.NEXTPAGE%>&item=<%=strItem%>&content=<%=strContent%>"><span
+                                aria-hidden="true">&raquo;</span></a>
+                        </li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="list_note.jsp?flag=<%=SplitPage.LASTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">尾页</a>
+                        </li>
+                    </ul>
+                </nav>
+                <%--                <a href="list_note.jsp?flag=<%=SplitPage.FIRSTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">--%>
+                <%--                    <button type="button" class="btn btn-primary btn-sm">首页</button>--%>
+                <%--                </a>--%>
+                <%--                <a href="list_note.jsp?flag=<%=SplitPage.PREVIOUSEPAGE%>&item=<%=strItem%>&content=<%=strContent%>">--%>
+                <%--                    <button type="button" class="btn btn-primary btn-sm">上一页</button>--%>
+                <%--                </a>--%>
+                <%--                <a href="list_note.jsp?flag=<%=SplitPage.NEXTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">--%>
+                <%--                    <button type="button" class="btn btn-primary btn-sm">下一页</button>--%>
+                <%--                </a>--%>
+                <%--                <a href="list_note.jsp?flag=<%=SplitPage.LASTPAGE%>&item=<%=strItem%>&content=<%=strContent%>">--%>
+                <%--                    <button type="button" class="btn btn-primary btn-sm">尾页</button>--%>
+                <%--                </a>--%>
+                <div style="text-align: center;width: 90px;" class="lead">传送门
+                    <select id="selectpage" name="goPage" onchange="go();"
+                            class="form-select">
+                        <%
+                            for (int i = 1; i <= spage.getTotalPages(); i++) {
+                        %>
+                        <option value="<%=i%>"
+                            <%=(spage.getCurrentPage() == +i) ?"selected='selected'": ""%>><%=i%>/<%=spage.getTotalPages()%>
+                                <%
+                                    }
+                                %>
+                    </select>
+                </div>
+
             </td>
         </tr>
     </table>
 </div>
 
-<%@ include file="foot.jsp"%>
+<%@ include file="foot.jsp" %>
 
 </body>
 </html>
