@@ -54,6 +54,10 @@
 </nav>
 <main>
 
+    <h2>上传头像</h2>
+
+    <br>
+
     <div class="input-group">
         <form action="UploadServlet" method="post"
               enctype="multipart/form-data">
