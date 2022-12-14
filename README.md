@@ -5,6 +5,10 @@
 
 使用 [Bootstrap v5](https://v5.bootcss.com/docs/getting-started/introduction/) 美化前端界面，后端为 Servlet + jsp
 
+使用TOMCAT 9.0.0.11部署
+
+数据库采用mysql8.0
+
 ### 已实现功能：
 
 - 登录注册（背景为随机图片）

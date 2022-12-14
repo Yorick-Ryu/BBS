@@ -39,7 +39,7 @@ public class ComputerCount {
     }
 
     public int getNumber() {
-        if (isCome == false)
+        if (!isCome)
             countPeople();
         return number;
     }
